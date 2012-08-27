@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            name="Import Category"
+            id="net.sf.importthem.commands.category">
+      </category>
+      <command
+            name="Import All"
+            categoryId="net.sf.importthem.commands.category"
+            id="net.sf.importthem.commands.importCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            commandId="net.sf.importthem.commands.importCommand"
+            class="net.sf.importthem.handlers.ImportHandler">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="net.sf.importthem.commands.importCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+     <!--
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               label="Import Menu"
+               mnemonic="M"
+               id="net.sf.importthem.menus.importMenu">
+            <command
+                  commandId="net.sf.importthem.commands.importCommand"
+                  mnemonic="S"
+                  id="net.sf.importthem.menus.importCommand">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="net.sf.importthem.toolbars.importToolbar">
+            <command
+                  commandId="net.sf.importthem.commands.importCommand"
+                  icon="icons/import.gif"
+                  tooltip="Import all projects"
+                  id="net.sf.importthem.toolbars.importCommand">
+            </command>
+         </toolbar>
+      </menuContribution>
+      -->
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <command
+               commandId="net.sf.importthem.commands.importCommand"
+               id="net.sf.importthem.menus.importCommand"
+               mnemonic="S">
+                <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeMenuSelection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <adapt
+                           type="org.eclipse.core.internal.resources.Folder">
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
