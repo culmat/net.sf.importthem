@@ -2,7 +2,10 @@ package net.sf.importthem.handlers;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+import groovy.lang.Script;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -71,10 +74,23 @@ public class ImportHandler extends AbstractHandler {
 		binding.setVariable("projectMap", projectMap);
 		binding.setVariable("selection", selection);
 		GroovyShell shell = new GroovyShell(getClass().getClassLoader(), binding );
-		Object res = shell.evaluate(script);
-		if(res instanceof ProjectMap){
-			projectMap = (ProjectMap) res;
-		} 
+		Script parse = shell.parse(script);
+		Method[] declaredMethods = parse.getClass().getDeclaredMethods();
+		
+		for (Method method : declaredMethods) {
+			if("importThem".equals(method.getName())){
+				try {
+					Object res = method.invoke(parse, new Object[]{projectMap,selection});
+					if(res instanceof ProjectMap){
+						projectMap = (ProjectMap) res;
+					} 
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+			}
+		}
+		
+
 		if (DevProject.exists()) {
 			dump(projectMap);
 			return true;

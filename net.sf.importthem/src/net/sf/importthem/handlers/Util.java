@@ -10,7 +10,7 @@ import org.eclipse.core.resources.IResource;
 public class Util {
 
 	
-  static void seekProjects(Map<String, Set<IFile>> workingSet2dotProjects, Folder... folders) throws Exception {
+  static Map<String, Set<IFile>> seekProjects(Map<String, Set<IFile>> workingSet2dotProjects, Folder... folders) throws Exception {
     for (Folder folder : folders) {
       addIfProject(folder, workingSet2dotProjects);
       for (IResource res : folder.members()) {
@@ -19,6 +19,7 @@ public class Util {
         }
       }
     }
+    return workingSet2dotProjects;
   }
 
   static void addIfProject(Folder folder, Map<String, Set<IFile>> workingSet2dotProjects) {
