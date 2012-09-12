@@ -9,6 +9,7 @@ import org.eclipse.core.resources.IResource;
 
 public class Util {
 
+	
   static void seekProjects(Map<String, Set<IFile>> workingSet2dotProjects, Folder... folders) throws Exception {
     for (Folder folder : folders) {
       addIfProject(folder, workingSet2dotProjects);

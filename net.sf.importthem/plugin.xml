@@ -9,7 +9,7 @@
             id="net.sf.importthem.commands.category">
       </category>
       <command
-            name="Import All"
+            name="importThem"
             categoryId="net.sf.importthem.commands.category"
             id="net.sf.importthem.commands.importCommand">
       </command>
@@ -64,7 +64,7 @@
          <command
                commandId="net.sf.importthem.commands.importCommand"
                id="net.sf.importthem.menus.importCommand"
-               mnemonic="S">
+               mnemonic="I">
                 <visibleWhen
                   checkEnabled="false">
                <with
@@ -80,6 +80,20 @@
             </visibleWhen>
          </command>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="net.sf.importthem.preferences.PrefPage"
+            id="net.sf.importthem.preferences.PrefPage"
+            name="ImportThem">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="net.sf.importthem.preferences.PrefInitializer">
+      </initializer>
    </extension>
 
 </plugin>

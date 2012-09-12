@@ -1,5 +1,8 @@
 package net.sf.importthem;
 
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -18,6 +21,7 @@ public class Activator extends AbstractUIPlugin {
 	public Activator() {
 	}
 
+	IResourceChangeListener listener = new MyResourceChangeReporter();
 	/*
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
@@ -25,6 +29,8 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		   ResourcesPlugin.getWorkspace().addResourceChangeListener(listener,
+		      IResourceChangeEvent.PRE_DELETE);
 	}
 
 	/*
@@ -32,6 +38,7 @@ public class Activator extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
+		ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
 		plugin = null;
 		super.stop(context);
 	}
