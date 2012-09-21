@@ -101,21 +101,7 @@ public class ImportHandler extends AbstractHandler {
 			public void run(IProgressMonitor monitor) {
 				monitor.beginTask("Generating working sets", IProgressMonitor.UNKNOWN);
 				try {
-
 					try {
-//						Util.seekProjects(projectMap,selection);
-//						for (IFile file : projectMap.get("impl")) {
-//							String parentName = file.getParent().getName();
-//							if (parentName.endsWith("_sb")) {
-//								String wsName = parentName.replace("_sb", "OSB");
-//								projectMap.get(wsName).add(file);
-//							}
-//							if (parentName.endsWith("_OSB_deploy")) {
-//								String wsName = parentName.replace("_OSB_deploy", "OSB");
-//								projectMap.get(wsName).add(file);
-//							}
-//						}
-//						projectMap.remove("impl");
 						imprtAll(finalProjectMap, monitor);
 					} catch (Exception e) {
 						e.printStackTrace();

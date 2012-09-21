@@ -10,7 +10,13 @@ import org.eclipse.core.resources.IResource;
 public class Util {
 
 	
-  static Map<String, Set<IFile>> seekProjects(Map<String, Set<IFile>> workingSet2dotProjects, Folder... folders) throws Exception {
+  /**
+ * scans the folders recursively and adds one entry (parent folder name -> .project) for every .project file found 
+ * @param workingSet2dotProjects the map of workings set names -> .project files
+ * @param folders the folders to scan
+ * @return the in-parameter workingSet2dotProjects
+ */
+static Map<String, Set<IFile>> seekProjects(Map<String, Set<IFile>> workingSet2dotProjects, Folder... folders) throws Exception {
     for (Folder folder : folders) {
       addIfProject(folder, workingSet2dotProjects);
       for (IResource res : folder.members()) {
